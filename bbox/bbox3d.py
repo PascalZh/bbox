@@ -37,7 +37,7 @@ class BBox3D:
     def __init__(self, x, y, z,
                  length=1, width=1, height=1,
                  rx=0, ry=0, rz=0, rw=1, q=None,
-                 euler_angles=None, is_center=True):
+                 euler_angles=None, is_center=True, class_name=''):
         if is_center:
             self._c = np.array([x, y, z])
         else:
@@ -48,12 +48,14 @@ class BBox3D:
         if euler_angles:
             # we need to apply y, z and x rotations in order
             # http://www.euclideanspace.com/maths/geometry/rotations/euler/index.htm
-            self._rotate = Rotation.from_euler('zyx', euler_angles)
+            self._rotate = Rotation.from_euler('ZYX', euler_angles)
 
         elif q is not None:
             self._rotate = Rotation.from_quat(q)
         else:
             self._rotate = Rotation.from_quat([rx, ry, rz, rw])
+
+        self.class_name = class_name
 
     @property
     def center(self):
@@ -326,9 +328,10 @@ class BBox3D:
         return x
 
     def __repr__(self):
-        template = "BBox3D(x={cx}, y={cy}, z={cz}), length={l}, width={w}, height={h}, "\
+        template = "BBox3D(class_name={class_name}, x={cx}, y={cy}, z={cz}), length={l}, width={w}, height={h}, "\
             "q={q})"
         return template.format(
+            class_name=self.class_name,
             cx=self.cx, cy=self.cy, cz=self.cz,
             l=self._l, w=self._w, h=self._h, q=self._rotate.as_quat().tolist())
 
