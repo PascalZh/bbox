@@ -329,10 +329,11 @@ class BBox3D:
         return x
 
     def __repr__(self):
-        template = "BBox3D(class_name={class_name}, x={cx}, y={cy}, z={cz}), length={l}, width={w}, height={h}, "\
+        template = "BBox3D(class_name={class_name}, id={id}, x={cx}, y={cy}, z={cz}), length={l}, width={w}, height={h}, "\
             "q={q})"
         return template.format(
             class_name=self.class_name,
+            id=self.id,
             cx=self.cx, cy=self.cy, cz=self.cz,
             l=self._l, w=self._w, h=self._h, q=self._rotate.as_quat().tolist())
 
