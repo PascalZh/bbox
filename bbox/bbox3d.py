@@ -329,8 +329,8 @@ class BBox3D:
         return x
 
     def __repr__(self):
-        template = "BBox3D(class_name={class_name}, id={id}, x={cx}, y={cy}, z={cz}), length={l}, width={w}, height={h}, "\
-            "q={q})"
+        template = "BBox3D(class_name={class_name}, id={id}, x={cx:.3f}, y={cy:.3f}, z={cz:.3f}), length={l:.3f}, width={w:.3f}, height={h:.3f}, "\
+            "q=[{q[0]:.3f}, {q[1]:.3f}, {q[2]:.3f}, {q[3]:.3f}])"
         return template.format(
             class_name=self.class_name,
             id=self.id,
