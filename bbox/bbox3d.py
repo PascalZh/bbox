@@ -5,6 +5,7 @@
 from copy import deepcopy
 
 import numpy as np
+import uuid
 from scipy.spatial.transform import Rotation
 
 
@@ -37,7 +38,7 @@ class BBox3D:
     def __init__(self, x, y, z,
                  length=1, width=1, height=1,
                  rx=0, ry=0, rz=0, rw=1, q=None,
-                 euler_angles=None, is_center=True, class_name='', id=None):
+                 euler_angles=None, is_center=True, class_name=None, id=None, extra_info=None):
         if is_center:
             self._c = np.array([x, y, z])
         else:
@@ -55,8 +56,9 @@ class BBox3D:
         else:
             self._rotate = Rotation.from_quat([rx, ry, rz, rw])
 
-        self.class_name = class_name
-        self.id = str(id(self)) if id is None else id
+        self.class_name = class_name if class_name else ''
+        self.id = id if id else str(uuid.uuid4()).replace("-", "")
+        self.extra_info = extra_info if extra_info else {}
 
     @property
     def center(self):
